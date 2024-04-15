@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- css link -->
+    <link rel="stylesheet" href="css/style.css">
+    <title>Chat</title>
+</head>
+
+<body>
+
+
+
+    <div class="container">
+        <nav class="navbar bg-body-tertiary">
+            <form class="container-fluid justify-content-start">
+                <button class="btn btn-outline-danger me-2" type="button" id="delete-button">Borrar Chat</button>
+                <button class="btn btn-sm btn-outline-secondary" type="button">.........</button>
+            </form>
+        </nav>
+        <div class="row">
+            <div class="col-sm-6">
+                <div id="chatcontainer">
+
+                </div>
+                <!-- Formulario para subir imágenes y texto -->
+                <form id="image-form">
+                    <!-- <label for="file-input" class="custom-file-upload">
+                            Seleccionar imagen
+                        </label> -->
+                    <!-- <input type="file" accept="image/*" id="file-input" class="imagesec"> -->
+
+                    <input type="text" class="form-control mb-3" placeholder="Ingrese un mensaje" id="message-input">
+                    <!-- <button type="submit" class="subir-imagen">Subir Imagen Con Texto</button> -->
+                    <!-- <button id="save-text-button">Enviar</button> -->
+
+                    <!--boton para enviar mensajes-->
+
+                    <!-- Botones DE Funcionalidad -->
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary" id="save-text-button" >Enviar</button>
+                        <!-- <button class="btn btn-primary" type="button">Button</button>
+                            <button class="btn btn-primary" type="button">Button</button> -->
+                        <input type="file" accept="image/*" id="file-input">
+                        <label for="file-input" class="btn btn-primary">
+                            Seleccionar imagen
+                        </label>
+                        <button id="record-button" class="btn btn-primary" type="button">Iniciar Grabación</button>
+                        <button id="stop-button" class="btn btn-primary" type="button">Detener Grabación</button>
+
+                 
+
+
+                        <!-- <button class="btn btn-primary" type="button">Button</button> -->
+
+                    </div>
+
+
+
+                </form>
+
+
+                <!-- Botón para guardar solo el texto -->
+
+
+                <!-- Contenedor para mostrar los mensajes -->
+
+
+                <!-- Botón para borrar todos los documentos -->
+                <!-- <button id="delete-button">Borrar Chat</button> -->
+
+            </div>
+        </div>
+    </div>
+
+
+    <!--script-->
+    <!-- <script type="module">
+
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js';
+        import { getFirestore, collection, addDoc, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js';
+        import { getStorage, ref, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-storage.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBSbvwJer4wX_PnoCWNLZcsx4eVOwqxssI",
+            authDomain: "elnombredealfredo.firebaseapp.com",
+            projectId: "elnombredealfredo",
+            storageBucket: "elnombredealfredo.appspot.com",
+            messagingSenderId: "834831575513",
+            appId: "1:834831575513:web:befda854a3fd7f415691c8"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
+
+        const audioInput = document.getElementById('audio-input');
+        const recordButton = document.getElementById('record-button');
+        const stopButton = document.getElementById('stop-button');
+        const audioList = document.getElementById('chatcontainer');
+
+        let mediaRecorder;
+        let audioChunks = [];
+
+        recordButton.addEventListener('click', async () => {
+            audioChunks = [];
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaRecorder = new MediaRecorder(stream);
+            mediaRecorder.ondataavailable = (e) => {
+                audioChunks.push(e.data);
+            };
+            mediaRecorder.onstop = async () => {
+                const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                const storageRef = ref(storage, 'audios/' + new Date().toISOString() + '.wav');
+                await uploadBytes(storageRef, audioBlob);
+                const audioUrl = await getDownloadURL(storageRef);
+                saveAudioUrlToFirestore(audioUrl);
+            };
+            mediaRecorder.start();
+        });
+
+        stopButton.addEventListener('click', () => {
+            mediaRecorder.stop();
+        });
+
+        async function saveAudioUrlToFirestore(audioUrl) {
+            await addDoc(collection(db, 'audios'), {
+                url: audioUrl,
+                timestamp: new Date(),
+            });
+        }
+
+        onSnapshot(collection(db, 'audios'), (querySnapshot) => {
+            audioList.innerHTML = '';
+
+            querySnapshot.forEach((doc) => {
+                const audioData = doc.data();
+                const audioItem = document.createElement('li');
+                audioItem.textContent = `Audio recorded at ${audioData.timestamp}`;
+
+                const audioPlayer = document.createElement('audio');
+                audioPlayer.src = audioData.url;
+                audioPlayer.controls = true;
+
+                audioItem.appendChild(audioPlayer);
+                audioList.appendChild(audioItem);
+            });
+        });
+
+
+    </script> -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <!-- <script src="js/audio.js"></script> -->
+    <script type="module" src="js/app.js"></script>
+
+</body>
+
+</html>
